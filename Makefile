@@ -1,4 +1,4 @@
-#Makefile (por Felipe Sena)
+#Makefile (por Jason willyan)
 
 #	$@	Nome da regra.
 #	$<	Nome da primeira dependência

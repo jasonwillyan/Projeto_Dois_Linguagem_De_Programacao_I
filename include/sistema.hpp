@@ -23,14 +23,14 @@ class Sistema {
   string create_user (const string email, const string senha, const string nome);//OK
   string login(const string email, const string senha);//OK
   string disconnect(); //OK
-  string create_server(const string nome);
-  string set_server_desc(const string nome, const string descricao);
-  string set_server_invite_code(const string nome, const string codigo);
-  string list_servers();
-  string remove_server(const string nome);
-  string enter_server(const string nome, const string codigo);
-  string leave_server();
-  string list_participants();
+  string create_server(const string nome); //OK
+  string set_server_desc(const string nome, const string descricao); //OK
+  string set_server_invite_code(const string nome, const string codigo); //OK
+  string list_servers(); //OK
+  string remove_server(const string nome); //OK
+  string enter_server(const string nome, const string codigo); //OK
+  string leave_server(); //OK
+  string list_participants(); //OK
   string list_channels();
   string create_channel(const string nome, const string tipo);
   string enter_channel(const string nome);

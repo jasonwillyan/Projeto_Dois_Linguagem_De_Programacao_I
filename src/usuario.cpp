@@ -23,3 +23,15 @@ int Usuario::getId()
 {
     return id;
 }
+void Usuario::addServer(Servidor* servidor)
+{
+    this->servidor = servidor;
+}
+Servidor* Usuario::getServer()
+{
+    return servidor;
+}
+string Usuario::getNome()
+{
+    return nome;
+}

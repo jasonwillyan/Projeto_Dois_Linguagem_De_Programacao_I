@@ -20,9 +20,13 @@ class Servidor{
         Servidor();
         int getDono();
         string getNome();
-        const vector<int>& getParticipantes();
-        void setDescricao(string descricao);
-        Servidor(int id, string nome);
+        vector<int>& getParticipantes();
+        void setDescricao(const string& descricao);
+        string getDescricao();
+        Servidor(int id, const string& nome);
+        string getConvite();
+        void setConvite(const string& codigo);
+        void addParticipante(int id);
         ~Servidor();
 };
 
