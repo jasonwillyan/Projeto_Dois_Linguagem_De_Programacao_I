@@ -1,23 +1,11 @@
-# Base para a atividade 03 de LP1
+Discente:
+    Jason Willyan Castro do Nascimento
+    20190146791
 
-Use esse esqueleto de classes para iniciar a terceira atividade.
-
-Existe um executor que faz a interpretação dos comandos e executa o método correto do sistema.
-
-## Para compilar
-
-```console
-make
-```
-
-## Para executar
-Você pode rodar o sistema e em logo depois digitar os comandos seguidos de ENTER
-```console
-./concordo
-```
-
-Ou pode criar um arquivo de texto com uma lista de comandos (um por linha) e executar o sistema redirecionando esse arquivo como entrada padrão:
-```console
-./concordo < script_comandos.txt
-```
+# Execução:
+    Para executar o projeto
+        1 - Descompacte o arquivo .zip (Clique com botão direito e selecione extrair aqui)
+        2 - Abra o terminal e vá até o local do arquivo, e execute:
+            2.1 - make
+            2.2 - ./prog.exe
 
