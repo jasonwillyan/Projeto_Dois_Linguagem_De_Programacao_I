@@ -12,6 +12,7 @@ class Usuario{
         string email;
         string senha;
         Servidor *servidor = nullptr;
+        Canal *canal = nullptr;
         bool status;
 
     public:
@@ -21,6 +22,8 @@ class Usuario{
         int getId();
         Servidor *getServer();
         string getNome();
+        Canal *getCanal();
+        void addCanal(Canal* canal);
         Usuario(int id, string nome, string email, string senha);
         void addServer(Servidor *servidor);
         ~Usuario();

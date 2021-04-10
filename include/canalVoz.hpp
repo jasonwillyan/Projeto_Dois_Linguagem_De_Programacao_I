@@ -10,6 +10,7 @@ class CanalVoz: public Canal{
         
     public:
         CanalVoz();
+        CanalVoz(const string& nome, const string& tipo);
         ~CanalVoz();
 };
 

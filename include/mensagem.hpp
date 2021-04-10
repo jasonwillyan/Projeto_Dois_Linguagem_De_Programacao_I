@@ -2,6 +2,7 @@
 #define MENSAGEM_H
 
 #include <iostream>
+#include <ctime>
 using namespace std;
 
 class Mensagem{
@@ -12,8 +13,11 @@ class Mensagem{
 
     public:
         Mensagem();
-        Mensagem();
+        string getDataHora();
+        string getConteudo();
+        int getIdUser();
+        Mensagem(const string& dataHora, const string& conteudo, int idUser);
+        ~Mensagem();
 };
-
 
 #endif

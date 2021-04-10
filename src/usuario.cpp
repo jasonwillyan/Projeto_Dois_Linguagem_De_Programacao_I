@@ -35,3 +35,11 @@ string Usuario::getNome()
 {
     return nome;
 }
+void Usuario::addCanal(Canal* canal)
+{
+    this->canal = canal;
+}
+Canal* Usuario::getCanal()
+{
+    return canal;
+}

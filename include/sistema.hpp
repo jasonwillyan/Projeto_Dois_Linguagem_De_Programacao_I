@@ -31,8 +31,8 @@ class Sistema {
   string enter_server(const string nome, const string codigo); //OK
   string leave_server(); //OK
   string list_participants(); //OK
-  string list_channels();
-  string create_channel(const string nome, const string tipo);
+  string list_channels(); //OK
+  string create_channel(const string nome, const string tipo); //OK
   string enter_channel(const string nome);
   string leave_channel();
   string send_message(const string mensagem);

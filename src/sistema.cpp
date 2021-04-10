@@ -254,28 +254,104 @@ string Sistema::list_participants()
 	return "************************";
 }
 
-string Sistema::list_channels() {
-  return "list_channels NÃO IMPLEMENTADO";
+string Sistema::list_channels()
+{
+	if(colecao_usuarios[usuarioLogadoId-1].getServer() == nullptr)
+	{
+		return "Voce nao esta conectado a nenhum servidor";
+	}
+	cout <<"# canais de texto"<<endl;
+	for(auto& canal : colecao_usuarios[usuarioLogadoId-1].getServer()->getCanais())
+	{
+		if(canal.getTipo() == "texto")
+		{
+			cout << canal.getNome() <<endl;
+		}
+	}
+	cout <<"# canais de voz"<<endl;
+	for(auto& canal : colecao_usuarios[usuarioLogadoId-1].getServer()->getCanais())
+	{
+		if(canal.getTipo() == "voz")
+		{
+			cout << canal.getNome() <<endl;
+		}
+	}
+	return "";
 }
 
-string Sistema::create_channel(const string nome, const string tipo) {
-  return "create_channel NÃO IMPLEMENTADO";
+string Sistema::create_channel(const string nome, const string tipo)
+{
+	if(colecao_usuarios[usuarioLogadoId-1].getServer() == nullptr)
+	{
+		return "Voce nao esta conectado a nenhum servidor";
+	}
+	return colecao_usuarios[usuarioLogadoId-1].getServer()->addCanal(nome, tipo);
+	
 }
 
-string Sistema::enter_channel(const string nome) {
-  return "enter_channel NÃO IMPLEMENTADO";
+string Sistema::enter_channel(const string nome)
+{
+	if(colecao_usuarios[usuarioLogadoId-1].getServer() == nullptr)
+	{
+		return "Voce nao esta conectado a nenhum servidor";
+	}
+	for(auto& canal : colecao_usuarios[usuarioLogadoId-1].getServer()->getCanais())
+	{
+		if(canal.getNome() == nome)
+		{
+			colecao_usuarios[usuarioLogadoId-1].addCanal(&canal);
+			return "Entrou no canal "+nome;
+		}
+	}
+	return "Canal "+nome+" nao existe";
 }
 
-string Sistema::leave_channel() {
-  return "leave_channel NÃO IMPLEMENTADO";
+string Sistema::leave_channel()
+{
+	colecao_usuarios[usuarioLogadoId-1].addCanal(nullptr);
+	return "“Saindo do canal";
 }
 
-string Sistema::send_message(const string mensagem) {
-  return "send_message NÃO IMPLEMENTADO";
+string Sistema::send_message(const string mensagem)
+{
+	if(colecao_usuarios[usuarioLogadoId-1].getServer() == nullptr)
+	{
+		return "Voce nao esta conectado a nenhum servidor";
+	}
+	else if(colecao_usuarios[usuarioLogadoId-1].getCanal() == nullptr)
+	{
+		return "Voce nao esta conectado a nenhum canal";
+	}
+	if(colecao_usuarios[usuarioLogadoId-1].getCanal()->getTipo() == "texto")
+	{
+		time_t data_tempo;
+		time(&data_tempo);
+
+		struct tm*tempo = localtime(&data_tempo);
+		struct tm*data = localtime(&data_tempo);
+
+		string datahora(to_string(data->tm_mday)+"/"+to_string(data->tm_mon + 1)
+		+"/"+to_string(data->tm_year + 1900)+" - "+ to_string(tempo->tm_hour)
+		+":"+to_string(tempo->tm_min));
+
+		Mensagem texto(datahora, mensagem, usuarioLogadoId);
+		CanalTexto* canal = dynamic_cast <CanalTexto*>(colecao_usuarios[usuarioLogadoId-1].getCanal());
+		canal->getMensagens().emplace_back(texto);
+	}
+	return "";
 }
 
-string Sistema::list_messages() {
-  return "list_messages NÃO IMPLEMENTADO";
+string Sistema::list_messages()
+{
+	if(colecao_usuarios[usuarioLogadoId-1].getCanal()->getTipo() == "texto")
+	{
+		CanalTexto* canal = dynamic_cast <CanalTexto*>(colecao_usuarios[usuarioLogadoId-1].getCanal());
+		for(auto&	mensagem : canal->getMensagens())
+		{
+			cout << colecao_usuarios[mensagem.getIdUser()].getNome()+"<" << mensagem.getDataHora()+">: " << mensagem.getConteudo() << endl;
+		}
+	}
+	return "list_messages NÃO IMPLEMENTADO";
 }
 
 

@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 #include "canal.hpp"
+#include "canalTexto.hpp"
+#include "canalVoz.hpp"
 
 using namespace std;
 
@@ -27,6 +29,8 @@ class Servidor{
         string getConvite();
         void setConvite(const string& codigo);
         void addParticipante(int id);
+        vector<Canal>& getCanais();
+        string addCanal(const string& nome, const string& tipo);
         ~Servidor();
 };
 

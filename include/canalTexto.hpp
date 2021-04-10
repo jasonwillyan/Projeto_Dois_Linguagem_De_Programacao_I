@@ -13,6 +13,8 @@ class CanalTexto: public Canal{
 
     public:
         CanalTexto();
+        vector<Mensagem> &getMensagens();
+        CanalTexto(const string& nome, const string& tipo);
         ~CanalTexto();
 };
 

@@ -5,12 +5,16 @@
 using namespace std;
 
 class Canal{
-    private:
+    protected:
         string nome;
+        string tipo;
 
     public:
         Canal();
-        ~Canal();
+        string getNome();
+        Canal(const string& nome, const string & tipo);
+        string getTipo();
+        virtual ~Canal();
 };
 
 #endif
