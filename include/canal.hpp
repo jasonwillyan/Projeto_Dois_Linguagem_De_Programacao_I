@@ -14,7 +14,7 @@ class Canal{
         string getNome();
         Canal(const string& nome, const string & tipo);
         string getTipo();
-        virtual ~Canal();
+        virtual ~Canal(){}
 };
 
 #endif

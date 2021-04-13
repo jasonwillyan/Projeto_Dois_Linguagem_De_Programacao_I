@@ -15,7 +15,7 @@ class Servidor{
         string nome;
         string descricao;
         string codigoConvite;
-        vector<Canal> canais;
+        vector<Canal*> canais;
         vector<int> participantesIDs;
         
     public:
@@ -29,7 +29,7 @@ class Servidor{
         string getConvite();
         void setConvite(const string& codigo);
         void addParticipante(int id);
-        vector<Canal>& getCanais();
+        vector<Canal*>& getCanais();
         string addCanal(const string& nome, const string& tipo);
         ~Servidor();
 };

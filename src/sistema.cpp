@@ -263,17 +263,17 @@ string Sistema::list_channels()
 	cout <<"# canais de texto"<<endl;
 	for(auto& canal : colecao_usuarios[usuarioLogadoId-1].getServer()->getCanais())
 	{
-		if(canal.getTipo() == "texto")
+		if(canal->getTipo() == "texto")
 		{
-			cout << canal.getNome() <<endl;
+			cout << canal->getNome() <<endl;
 		}
 	}
 	cout <<"# canais de voz"<<endl;
 	for(auto& canal : colecao_usuarios[usuarioLogadoId-1].getServer()->getCanais())
 	{
-		if(canal.getTipo() == "voz")
+		if(canal->getTipo() == "voz")
 		{
-			cout << canal.getNome() <<endl;
+			cout << canal->getNome() <<endl;
 		}
 	}
 	return "";
@@ -284,6 +284,13 @@ string Sistema::create_channel(const string nome, const string tipo)
 	if(colecao_usuarios[usuarioLogadoId-1].getServer() == nullptr)
 	{
 		return "Voce nao esta conectado a nenhum servidor";
+	}
+	for(auto& canal : colecao_usuarios[usuarioLogadoId-1].getServer()->getCanais())
+	{
+		if(canal->getNome() == nome && canal->getTipo() == tipo)
+		{
+			return "canal de "+tipo+" "+nome+" já existe";
+		}
 	}
 	return colecao_usuarios[usuarioLogadoId-1].getServer()->addCanal(nome, tipo);
 	
@@ -297,9 +304,9 @@ string Sistema::enter_channel(const string nome)
 	}
 	for(auto& canal : colecao_usuarios[usuarioLogadoId-1].getServer()->getCanais())
 	{
-		if(canal.getNome() == nome)
+		if(canal->getNome() == nome)
 		{
-			colecao_usuarios[usuarioLogadoId-1].addCanal(&canal);
+			colecao_usuarios[usuarioLogadoId-1].addCanal(canal);
 			return "Entrou no canal "+nome;
 		}
 	}
@@ -309,7 +316,7 @@ string Sistema::enter_channel(const string nome)
 string Sistema::leave_channel()
 {
 	colecao_usuarios[usuarioLogadoId-1].addCanal(nullptr);
-	return "“Saindo do canal";
+	return "Saindo do canal";
 }
 
 string Sistema::send_message(const string mensagem)
@@ -338,20 +345,48 @@ string Sistema::send_message(const string mensagem)
 		CanalTexto* canal = dynamic_cast <CanalTexto*>(colecao_usuarios[usuarioLogadoId-1].getCanal());
 		canal->getMensagens().emplace_back(texto);
 	}
+
+	if(colecao_usuarios[usuarioLogadoId-1].getCanal()->getTipo() == "voz")
+	{
+		time_t data_tempo;
+		time(&data_tempo);
+
+		struct tm*tempo = localtime(&data_tempo);
+		struct tm*data = localtime(&data_tempo);
+
+		string datahora(to_string(data->tm_mday)+"/"+to_string(data->tm_mon + 1)
+		+"/"+to_string(data->tm_year + 1900)+" - "+ to_string(tempo->tm_hour)
+		+":"+to_string(tempo->tm_min));
+
+		Mensagem texto(datahora, mensagem, usuarioLogadoId);
+		CanalVoz* canal = dynamic_cast <CanalVoz*>(colecao_usuarios[usuarioLogadoId-1].getCanal());
+		canal->SendMensage(texto);
+	}
 	return "";
 }
 
 string Sistema::list_messages()
 {
+
 	if(colecao_usuarios[usuarioLogadoId-1].getCanal()->getTipo() == "texto")
 	{
 		CanalTexto* canal = dynamic_cast <CanalTexto*>(colecao_usuarios[usuarioLogadoId-1].getCanal());
+		if(canal->getMensagens().size() == 0)
+		{
+			return "Sem mensagens para exibir";
+		}
 		for(auto&	mensagem : canal->getMensagens())
 		{
-			cout << colecao_usuarios[mensagem.getIdUser()].getNome()+"<" << mensagem.getDataHora()+">: " << mensagem.getConteudo() << endl;
+			cout << colecao_usuarios[mensagem.getIdUser()-1].getNome()+"<" << mensagem.getDataHora()+">: " << mensagem.getConteudo() << endl;
 		}
 	}
-	return "list_messages NÃO IMPLEMENTADO";
+	if(colecao_usuarios[usuarioLogadoId-1].getCanal()->getTipo() == "voz")
+	{
+		CanalVoz* canal = dynamic_cast <CanalVoz*>(colecao_usuarios[usuarioLogadoId-1].getCanal());
+		cout << colecao_usuarios[canal->getUltimaMensagem().getIdUser()-1].getNome()+"<" 
+		<< canal->getUltimaMensagem().getDataHora()+">: " << canal->getUltimaMensagem().getConteudo() << endl;
+	}
+	return "";
 }
 
 

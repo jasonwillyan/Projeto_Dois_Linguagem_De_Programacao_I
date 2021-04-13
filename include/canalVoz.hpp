@@ -10,6 +10,8 @@ class CanalVoz: public Canal{
         
     public:
         CanalVoz();
+        void SendMensage(const Mensagem& mensagem);
+        Mensagem getUltimaMensagem();
         CanalVoz(const string& nome, const string& tipo);
         ~CanalVoz();
 };

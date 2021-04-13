@@ -16,7 +16,3 @@ string Canal::getTipo()
 {
     return this->tipo;
 }
-Canal::~Canal()
-{
-    //Destrutor padrão
-}

@@ -49,12 +49,12 @@ string Servidor::addCanal(const string& nome, const string& tipo)
     {
         for(auto& canal : canais)
         {
-            if(canal.getNome() == nome && canal.getTipo() == "texto")
+            if(canal->getNome() == nome && canal->getTipo() == "texto")
             {
                     return "Canal de texto "+nome+" já existe";
             } 
         }
-        CanalTexto canalTexto(nome,tipo);
+        CanalTexto* canalTexto = new CanalTexto(nome,tipo);
         canais.emplace_back(canalTexto);
         return "Canal de texto "+nome+" criado";
     }
@@ -62,18 +62,18 @@ string Servidor::addCanal(const string& nome, const string& tipo)
     {
         for(auto& canal : canais)
         {
-            if(canal.getNome() == nome && canal.getTipo() == "voz")
+            if(canal->getNome() == nome && canal->getTipo() == "voz")
             {
                     return "Canal de voz "+nome+" já existe";
             } 
         }
-        CanalVoz canalVoz(nome,tipo);
+        CanalVoz* canalVoz = new CanalVoz(nome,tipo);
         canais.emplace_back(canalVoz);
         return "Canal de Voz "+nome+" criado";
     }
     return "Nao foi possivel criar o canal";
 }
-vector<Canal>& Servidor::getCanais()
+vector<Canal*>& Servidor::getCanais()
 {
     return canais;
 }

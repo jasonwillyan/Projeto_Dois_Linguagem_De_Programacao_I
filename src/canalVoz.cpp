@@ -12,3 +12,12 @@ CanalVoz::~CanalVoz()
 {
     //Destrutor padrão
 }
+void CanalVoz::SendMensage(const Mensagem& mensagem)
+{
+    this->ultimaMensagem = mensagem;
+}
+Mensagem CanalVoz::getUltimaMensagem()
+{
+    return ultimaMensagem;
+}
+
